@@ -16,6 +16,7 @@ def store_chat(user_message, bot_response):
     }
     chats_collection.insert_one(chat_entry)
 
+
 def main():
     say("Hello! How can I assist you?")
 
