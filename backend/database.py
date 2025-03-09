@@ -2,11 +2,9 @@ import pymongo
 from datetime import datetime
 
 try:
-    # ✅ Connect to MongoDB
     client = pymongo.MongoClient("mongodb://localhost:27017/")
     db = client["course_db"]
 
-    # ✅ Define collections
     collections = {
         "users": db["users"],
         "tutors": db["tutors"],
@@ -16,13 +14,10 @@ try:
         "likes": db["likes"],
         "bookmark": db["bookmark"],
         "contact": db["contact"],
-        "userdata": db["users_data"],  # ✅ Ensure this is created
-        "chatbot": db["chats"]         # ✅ Ensure this is created
+        "userdata": db["users_data"],
+        "chatbot": db["chats"]
     }
 
-    # ✅ Insert sample data to ensure collection creation
-
-    # Users Collection
     users_data = {
         "id": "1",
         "name": "Alice",
@@ -104,8 +99,6 @@ try:
     }
     collections["contact"].insert_one(contact_data)
 
-    # ✅ Insert sample data to ensure "users_data" and "chats" collections exist
-
     users_data_entry = {
         "user_id": "1",
         "preferences": ["math", "science"],
@@ -121,7 +114,7 @@ try:
     }
     collections["chatbot"].insert_one(chatbot_entry)
 
-    print("✅ Database and collections created successfully!")
+    print(" Database and collections created successfully!")
 
 except Exception as e:
-    print(f"❌ Error connecting to MongoDB: {e}")
+    print(f" Error connecting to MongoDB: {e}")
