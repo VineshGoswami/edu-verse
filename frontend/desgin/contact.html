@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>contact us</title>
+
+   <!-- Font Awesome CDN -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <style>
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color, #f5f7fa);
+    color: var(--text-color, #333);
+    line-height: 1.6;
+}
+
+:root {
+    --primary-color: #1a237e;
+    --secondary-color: #4caf50;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --bg-color: #f5f7fa;
+    --card-bg: white;
+    --border-color: #ddd;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --primary-color: #1a237e;
+    --secondary-color: #4caf50;
+    --text-color: #f0f0f0;
+    --light-gray: #333;
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --border-color: #444;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.header .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.search-form {
+    display: flex;
+    width: 300px;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.search-form button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.icons div {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: white;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    border: 3px solid var(--secondary-color);
+}
+
+.name {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-color);
+}
+
+.role {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.flex-btn a {
+    margin: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #f1f1f1;
+    color: #333;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+/* Sidebar Styles */
+.side-bar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--card-bg);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    padding: 2rem;
+    z-index: 1001;
+}
+
+.side-bar.active {
+    right: 0;
+}
+
+#close-btn {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+#close-btn i {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.side-bar .profile {
+    margin-bottom: 2rem;
+}
+
+.side-bar .navbar a {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    color: #333;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.side-bar .navbar a:hover {
+    background-color: #f5f5f5;
+}
+
+.side-bar .navbar a i {
+    margin-right: 1rem;
+    color: var(--primary-color);
+}
+
+/* Contact Section Styles */
+.contact {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.contact .row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: center;
+}
+
+.image {
+    flex: 1;
+}
+
+.image img {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.image img:hover {
+    transform: scale(1.02);
+}
+
+form {
+    flex: 1;
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+form h3 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    font-weight: 600;
+}
+
+.box {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.box:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
+    outline: none;
+}
+
+.inline-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+    display: block;
+    margin: 1rem auto 0;
+    width: fit-content;
+}
+
+.inline-btn:hover {
+    background-color: #0d1656;
+    transform: translateY(-2px);
+}
+
+/* Contact Info Boxes */
+.box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.box-container .box {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.box-container .box:hover {
+    transform: translateY(-5px);
+}
+
+.box-container .box i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.box-container .box h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.box-container .box a {
+    display: block;
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.box-container .box a:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .contact .row {
+        flex-direction: column;
+    }
+    
+    .side-bar {
+        width: 100%;
+    }
+    
+    .header .flex {
+        flex-wrap: wrap;
+    }
+    
+    .search-form {
+        width: 100%;
+        margin: 1rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .icons {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    form {
+        padding: 1rem;
+    }
+    
+    .box {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+    }
+    
+    .inline-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+   </style>
+</head>
+<body>
+    <header class="header">
+        <section class="flex">
+            <a href="home.html" class="logo">EdVission</a>
+            <form action="search.html" method="post" class="search-form">
+                <input type="text" name="search_box" required placeholder="Search courses..." maxlength="100">
+                <button type="submit" class="fas fa-search"></button>
+            </form>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="search-btn" class="fas fa-search"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+                <div id="toggle-btn" class="fas fa-sun"></div>
+            </div>
+            <div class="profile">
+                <img src="images/pic-1.jpg" class="image" alt="">
+                <h3 class="name">Vivek Kumar</h3>
+                <p class="role">Student</p>
+                <a href="profile.html" class="btn">View Profile</a>
+                <div class="flex-btn">
+                    <a href="login.html" class="option-btn">Login</a>
+                    <a href="register.html" class="option-btn">Register</a>
+                </div>
+            </div>
+        </section>
+    </header>
+    
+    <div class="side-bar">
+        <div id="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+            <h3 class="name">Vivek Kumar</h3>
+            <p class="role">Student</p>
+            <a href="profile.html" class="btn">View Profile</a>
+        </div>
+        <nav class="navbar">
+            <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="about.html"><i class="fas fa-question"></i><span>About</span></a>
+            <a href="quiz.html"><i class="fa-solid fa-brain"></i><span>Quiz</span> </a>
+            <a href="assignment.html"><i class="fa-solid fa-pen"></i><span>Assignment</span> </a>
+            <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+            <a href="contact.html"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+        </nav>
+    </div>
+    
+    <section class="contact">
+        <div class="row">
+            <div class="image">
+                <img src="images/contact-img.svg" alt="Contact Us">
+            </div>
+            <form action="" method="post">
+                <h3>Get In Touch</h3>
+                <input type="text" placeholder="Enter your name" name="name" required maxlength="50" class="box">
+                <input type="email" placeholder="Enter your email" name="email" required maxlength="50" class="box">
+                <input type="number" placeholder="Enter your number" name="number" required maxlength="50" class="box">
+                <textarea name="msg" class="box" placeholder="Enter your message" required maxlength="1000" cols="30" rows="10"></textarea>
+                <button type="submit" class="inline-btn" name="submit">Send Message</button>
+            </form>
+        </div>
+        
+        <div class="box-container">
+            <div class="box">
+                <i class="fas fa-phone"></i>
+                <h3>Phone Number</h3>
+                <a href="tel:1234567890">123-456-7890</a>
+                <a href="tel:1112223333">111-222-3333</a>
+            </div>
+            
+            <div class="box">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Address</h3>
+                <a href="mailto:vivekkrpandit159@gmail.com">vivekkrpandit159@gmail.com</a>
+            </div>
+            
+            <div class="box">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Office Address</h3>
+                <a href="#">Room no.714/711, Zakir-D, Chandigarh University, Punjab-140413</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Menu button functionality
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.querySelector('.side-bar').classList.add('active');
+        });
+
+        document.querySelector('.side-bar').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        document.getElementById('close-btn').addEventListener('click', function() {
+            document.querySelector('.side-bar').classList.remove('active');
+        });
+
+        // Dark mode toggle
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            document.body.dataset.theme = document.body.dataset.theme === 'dark' ? '' : 'dark';
+        });
+
+        // Add JavaScript for form submission feedback
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitBtn = this.querySelector('.inline-btn');
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    alert('Your message has been sent successfully!');
+                    this.reset();
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+                }, 1500);
+            });
+        }
+        
+        // Add hover effects for contact info boxes
+        const contactBoxes = document.querySelectorAll('.box-container .box');
+        contactBoxes.forEach(box => {
+            box.addEventListener('mouseenter', () => {
+                box.style.transform = 'translateY(-5px)';
+                box.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            });
+            
+            box.addEventListener('mouseleave', () => {
+                box.style.transform = 'translateY(0)';
+                box.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            });
+        });
+    </script>
+</body>
+</html>

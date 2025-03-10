@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Department Quiz</title>
+    <style>
+        /* Reset and base styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f5f7fa;
+            --card-bg: white;
+            --border-color: #eee;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #f0f0f0;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --border-color: #444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Header styles */
+        .header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        
+        .search-form {
+            display: flex;
+            width: 30%;
+        }
+        
+        .search-form input {
+            flex: 1;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        .search-form button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0 1rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        .icons {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .icons div {
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+        }
+        
+        .profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .profile .name {
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        .profile .role {
+            font-size: 0.8rem;
+            margin: 0;
+            color: #ecf0f1;
+        }
+        
+        .flex-btn {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .option-btn {
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Sidebar styles */
+        .side-bar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background: var(--card-bg);
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem 1rem;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            transform: translateX(100%);
+        }
+        
+        .side-bar.active {
+            transform: translateX(0);
+        }
+        
+        #close-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+        
+        .side-bar .profile {
+            margin-bottom: 2rem;
+        }
+        
+        .side-bar .profile img {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .side-bar .profile .name {
+            font-size: 1.2rem;
+        }
+        
+        .side-bar .profile .role {
+            font-size: 0.9rem;
+        }
+        
+        .side-bar .profile .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: background 0.3s;
+        }
+        
+        .side-bar .profile .btn:hover {
+            background: #2980b9;
+        }
+        
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .navbar a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .navbar i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        /* Main content adjustment for sidebar */
+        .main-content {
+            margin-right: 250px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Quiz container styles */
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container h1 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        
+        #quiz {
+            margin-bottom: 2rem;
+        }
+        
+        #question {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        #options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        #options button {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-color);
+        }
+        
+        #options button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        #options button.correct {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        #options button.incorrect {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        
+        button#next {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button#next:hover {
+            background: #2980b9;
+        }
+        
+        #result {
+            text-align: center;
+        }
+        
+        #result h2 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        #score {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .side-bar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-right: 200px;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+            
+            .search-form {
+                width: 40%;
+            }
+            
+            .flex {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .profile {
+                order: 3;
+            }
+            
+            .search-form {
+                order: 2;
+            }
+            
+            .icons {
+                order: 4;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .side-bar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                box-shadow: none;
+                transform: translateY(-100%);
+            }
+            
+            .side-bar.active {
+                transform: translateY(0);
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            .sidebar-header {
+                justify-content: center;
+            }
+            
+            .sidebar-close {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            .search-form {
+                width: 100%;
+            }
+            
+            .profile {
+                order: 4;
+            }
+            
+            .icons {
+                order: 5;
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <section class="flex">
+            <a href="home.html" class="logo">EdVission</a>
+            <form action="search.html" method="post" class="search-form">
+                <input type="text" name="search_box" required placeholder="Search courses..." maxlength="100">
+                <button type="submit" class="fas fa-search">Search</button>
+            </form>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="search-btn" class="fas fa-search"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+                <div id="toggle-btn" class="fas fa-sun"></div>
+            </div>
+            <div class="profile">
+                <img src="images/pic-1.jpg" class="image" alt="User profile">
+                <h3 class="name">Vivek Kumar</h3>
+                <p class="role">Student</p>
+                <a href="profile.html" class="btn">View Profile</a>
+                <div class="flex-btn">
+                    <a href="login.html" class="option-btn">Login</a>
+                    <a href="register.html" class="option-btn">Register</a>
+                </div>
+            </div>
+        </section>
+    </header>
+    
+    <!-- Sidebar moved to the right side -->
+    <div class="side-bar">
+        <div id="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+            <h3 class="name">Vivek Kumar</h3>
+            <p class="role">student</p>
+            <a href="profile.html" class="btn">view profile</a>
+        </div>
+        <nav class="navbar">
+            <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="about.html"><i class="fas fa-question"></i><span>About</span></a>
+            <a href="quiz.html"><i class="fa-solid fa-brain"></i><span>Quiz</span> </a>
+            <a href="assignment.html"><i class="fa-solid fa-pen"></i><span>Assignment</span> </a>
+            <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+            <a href="contact.html"><i class="fas fa-headset"></i><span>contact us</span></a>
+        </nav>
+    </div>
+    
+    <!-- Main Content with adjusted margin for right sidebar -->
+    <div class="main-content">
+        <div class="container">
+            <h1>CSE Department Quiz</h1>
+            <div id="quiz">
+                <p id="question">Question goes here</p>
+                <div id="options"></div>
+                <button id="next" onclick="nextQuestion()">Next</button>
+            </div>
+            <div id="result" class="hidden">
+                <h2>Your Score: <span id="score"></span></h2>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Dark mode toggle
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            document.body.dataset.theme = document.body.dataset.theme === 'dark' ? '' : 'dark';
+        });
+        
+        // Quiz functionality
+        const quizData = [
+            { question: "What does CPU stand for?", options: ["Central Processing Unit", "Central Process Unit", "Computer Personal Unit"], answer: "Central Processing Unit" },
+            { question: "Which data structure follows FIFO?", options: ["Stack", "Queue", "Tree"], answer: "Queue" },
+            { question: "What is the time complexity of binary search?", options: ["O(n)", "O(log n)", "O(n^2)"], answer: "O(log n)" }
+        ];
+        
+        let currentQuestionIndex = 0;
+        let score = 0;
+        
+        function loadQuestion() {
+            const questionData = quizData[currentQuestionIndex];
+            document.getElementById("question").textContent = questionData.question;
+            const optionsDiv = document.getElementById("options");
+            optionsDiv.innerHTML = "";
+            
+            questionData.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsDiv.appendChild(button);
+            });
+        }
+        
+        function checkAnswer(selected) {
+            if (selected === quizData[currentQuestionIndex].answer) {
+                score++;
+                // Add visual feedback for correct answer
+                const buttons = document.querySelectorAll("#options button");
+                buttons.forEach(btn => {
+                    if (btn.textContent === selected) {
+                        btn.classList.add("correct");
+                    } else {
+                        btn.classList.add("incorrect");
+                    }
+                });
+            } else {
+                // Add visual feedback for incorrect answer
+                const buttons = document.querySelectorAll("#options button");
+                buttons.forEach(btn => {
+                    if (btn.textContent === selected) {
+                        btn.classList.add("incorrect");
+                    }
+                    if (btn.textContent === quizData[currentQuestionIndex].answer) {
+                        btn.classList.add("correct");
+                    }
+                });
+            }
+            
+            // Disable all option buttons after selection
+            const options = document.querySelectorAll("#options button");
+            options.forEach(option => {
+                option.disabled = true;
+            });
+            
+            // Show next button
+            document.getElementById("next").style.display = "block";
+        }
+        
+        function nextQuestion() {
+            // Reset option button styles
+            const options = document.querySelectorAll("#options button");
+            options.forEach(option => {
+                option.classList.remove("correct", "incorrect");
+                option.disabled = false;
+            });
+            
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                document.getElementById("next").style.display = "none";
+                loadQuestion();
+            } else {
+                document.getElementById("quiz").classList.add("hidden");
+                document.getElementById("result").classList.remove("hidden");
+                document.getElementById("score").textContent = `${score}/${quizData.length}`;
+            }
+        }
+        
+        loadQuestion();
+        
+        // Sidebar toggle functionality
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.querySelector('.side-bar').classList.add('active');
+        });
+        
+        document.querySelector('#close-btn').addEventListener('click', function() {
+            document.querySelector('.side-bar').classList.remove('active');
+        });
+        
+        // Close sidebar when clicking outside
+        document.querySelector('.main-content').addEventListener('click', function() {
+            document.querySelector('.side-bar').classList.remove('active');
+        });
+    </script>
+</body>
+</html>

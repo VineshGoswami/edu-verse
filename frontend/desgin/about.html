@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>about us</title>
+
+   <!-- Font Awesome CDN -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <!-- Custom CSS -->
+   <style>
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+:root {
+    --primary-color: #1a237e;
+    --secondary-color: #4caf50;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --border-color: #ddd;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.dark {
+   --border: .1rem solid rgba(123, 0, 0, 0.2);
+   background: rgb(0,212,255);
+background: linear-gradient(180deg, rgba(0,212,255,1) 0%, rgba(47,47,218,1) 51%, rgba(0,0,25,1) 100%);
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.header .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.search-form {
+    display: flex;
+    width: 300px;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.search-form button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.icons div {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: white;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    border: 3px solid var(--secondary-color);
+}
+
+.name {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+}
+
+.role {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.flex-btn a {
+    margin: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #f1f1f1;
+    color: #333;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+/* Sidebar Styles */
+.side-bar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Changed from left to right */
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    padding: 2rem;
+    z-index: 1001;
+}
+
+.side-bar.active {
+    right: 0; /* Changed from left to right */
+}
+
+#close-btn {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+#close-btn i {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.side-bar .profile {
+    margin-bottom: 2rem;
+}
+
+.side-bar .navbar a {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    color: #333;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.side-bar .navbar a:hover {
+    background-color: #f5f5f5;
+}
+
+.side-bar .navbar a i {
+    margin-right: 1rem;
+    color: var(--primary-color);
+}
+
+/* About Section Styles */
+.about {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.about .row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: center;
+}
+
+.image {
+    flex: 1;
+}
+
+.image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.content {
+    flex: 1;
+}
+
+.content h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.inline-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.inline-btn:hover {
+    background-color: #0d1656;
+}
+
+/* Stats Boxes */
+.box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.box {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.box i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.box h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.box p {
+    color: #666;
+}
+
+/* Reviews Section */
+.reviews {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+.reviews h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.reviews .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.reviews .box {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.reviews .box p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.reviews .student {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.reviews .student img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.reviews .student h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.stars {
+    color: #f39c12;
+    font-size: 1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .about .row {
+        flex-direction: column;
+    }
+    
+    .side-bar {
+        width: 100%;
+    }
+    
+    .header .flex {
+        flex-wrap: wrap;
+    }
+    
+    .search-form {
+        width: 100%;
+        margin: 1rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .icons {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .box {
+        font-size: 0.9rem;
+        padding: 1rem;
+    }
+    
+    .inline-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+   </style>
+</head>
+<body>
+    <header class="header">
+        <section class="flex">
+            <a href="home.html" class="logo">EdVission</a>
+            <form action="search.html" method="post" class="search-form">
+                <input type="text" name="search_box" required placeholder="Search courses..." maxlength="100">
+                <button type="submit" class="fas fa-search"></button>
+            </form>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="search-btn" class="fas fa-search"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+                <div id="toggle-btn" class="fas fa-sun"></div>
+            </div>
+            <div class="profile">
+                <img src="images/pic-1.jpg" class="image" alt="">
+                <h3 class="name">Vivek Kumar</h3>
+                <p class="role">Student</p>
+                <a href="profile.html" class="btn">View Profile</a>
+                <div class="flex-btn">
+                    <a href="login.html" class="option-btn">Login</a>
+                    <a href="register.html" class="option-btn">Register</a>
+                </div>
+            </div>
+        </section>
+    </header>
+    
+    <div class="side-bar">
+        <div id="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+            <h3 class="name">Vivek Kumar</h3>
+            <p class="role">Student</p>
+            <a href="profile.html" class="btn">View Profile</a>
+        </div>
+        <nav class="navbar">
+            <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="about.html"><i class="fas fa-question"></i><span>About</span></a>
+            <a href="quiz.html"><i class="fa-solid fa-brain"></i><span>Quiz</span> </a>
+            <a href="assignment.html"><i class="fa-solid fa-pen"></i><span>Assignment</span> </a>
+            <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+            <a href="contact.html"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+        </nav>
+    </div>
+    
+    <section class="about">
+        <div class="row">
+            <div class="image">
+                <img src="images/about-img.svg" alt="About Us">
+            </div>
+            <div class="content">
+                <h3>Why choose us?</h3>
+                <p>Our Learning Dashboard is designed to provide a personalized, structured, and engaging learning experience. With AI-driven insights, skill gap analysis, and progress tracking, we help learners stay on the right path to mastering new skills efficiently.</p>
+                <p>Whether you're a student, professional, or lifelong learner, our intuitive interface, diverse learning resources, and real-time recommendations ensure that you gain the most relevant knowledge tailored to your goals.</p>
+                <a href="courses.html" class="inline-btn">Our Courses</a>
+            </div>
+        </div>
+        
+        <div class="box-container">
+            <div class="box">
+                <i class="fas fa-graduation-cap"></i>
+                <div>
+                    <h3>+10k</h3>
+                    <p>Online Courses</p>
+                </div>
+            </div>
+            
+            <div class="box">
+                <i class="fas fa-user-graduate"></i>
+                <div>
+                    <h3>+40k</h3>
+                    <p>Brilliant Students</p>
+                </div>
+            </div>
+            
+            <div class="box">
+                <i class="fas fa-chalkboard-user"></i>
+                <div>
+                    <h3>+2k</h3>
+                    <p>Expert Tutors</p>
+                </div>
+            </div>
+            
+            <div class="box">
+                <i class="fas fa-briefcase"></i>
+                <div>
+                    <h3>100%</h3>
+                    <p>Job Placement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="reviews">
+        <h1 class="heading">Student's Reviews</h1>
+        <div class="box-container">
+            <div class="box">
+                <p>"A Game-Changer for Skill Development! This platform has completely transformed the way I learn new skills. The AI-driven recommendations and personalized learning paths keep me engaged and motivated. Highly recommended!"</p>
+                <div class="student">
+                    <img src="images/pic-2.jpg" alt="">
+                    <div>
+                        <h3>Vikash</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box">
+                <p>"User-Friendly and Effective! I love how easy it is to navigate this dashboard. The real-time progress tracking and structured courses have helped me stay on track and improve my skills faster than ever!"</p>
+                <div class="student">
+                    <img src="images/pic-3.jpg" alt="">
+                    <div>
+                        <h3>Nitish</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box">
+                <p>"Perfect for Both Students and Professionals! Whether you're a student trying to upskill or a working professional looking for career growth, this dashboard offers everything you need in one place. The insights and analytics are a huge plus!"</p>
+                <div class="student">
+                    <img src="images/pic-4.jpg" alt="">
+                    <div>
+                        <h3>Raj</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box">
+                <p>"Smart and Personalized Learning Experience! The AI-powered skill gap analysis is a brilliant feature! It helps me identify my weak areas and focus on what really matters. I've seen significant improvement in just a few weeks."</p>
+                <div class="student">
+                    <img src="images/pic-5.jpg" alt="">
+                    <div>
+                        <h3>Dev</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box">
+                <p>"Diverse Learning Resources & Real-Time Feedback! This platform provides a wide range of learning materials, from videos to interactive exercises. The real-time feedback system makes learning more effective and enjoyable!"</p>
+                <div class="student">
+                    <img src="images/pic-6.jpg" alt="">
+                    <div>
+                        <h3>Rithik</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box">
+                <p>"The Future of Learning is Here! I've tried multiple learning platforms, but this one stands out with its intelligent recommendations and seamless user experience. It's like having a personal mentor guiding me every step of the way!"</p>
+                <div class="student">
+                    <img src="images/pic-7.jpg" alt="">
+                    <div>
+                        <h3>Ritika</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Menu button functionality
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.querySelector('.side-bar').classList.add('active');
+        });
+
+        document.querySelector('.side-bar').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        document.getElementById('close-btn').addEventListener('click', function() {
+            document.querySelector('.side-bar').classList.remove('active');
+        });
+
+        // Dark mode toggle
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            document.body.classList.toggle('dark');
+        });
+    </script>
+</body>
+</html>
